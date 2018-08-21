@@ -29,13 +29,49 @@ module.exports = class extends Base {
       return this.fail('登录失败');
     }
 
-    const userInfo = {
-      id: admin.id,
-      username: admin.username,
-      avatar: admin.avatar,
-      admin_role_id: admin.admin_role_id
-    };
+    // const userInfo = {
+    //   id: admin.id,
+    //   username: admin.username,
+    //   avatar: admin.avatar,
+    //   admin_role_id: admin.admin_role_id
+    // };
 
-    return this.success({ token: sessionKey, userInfo: userInfo });
+    return this.success({ token: sessionKey });
   }
+
+  async getUserinfoAction(){
+
+    if(think.userId > 0 ){
+
+      const admin = await this.model('admin').where({id:think.userId}).find();
+
+      if(think.isEmpty(admin)){
+
+        return this.fail(401,'请重新登录！');
+
+      }
+
+      const userInfo = {
+        id: admin.id,
+        username: admin.username,
+        avatar: admin.avatar,
+        admin_role_id: admin.admin_role_id,
+        access:['super_admin']
+      };
+
+    return this.success({userInfo:userInfo});
+
+
+    }else{
+
+      return this.fail(401,'请重新登录！');
+    }
+
+    
+
+
+
+
+  }
+
 };

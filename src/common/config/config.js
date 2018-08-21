@@ -1,6 +1,7 @@
 // default config
 module.exports = {
   default_module: 'api',
+  workers:1,
   weixin: {
     appid: '', // 小程序 appid
     secret: '', // 小程序密钥

@@ -6,4 +6,7 @@ module.exports = class extends think.Logic {
       password: { required: true, string: true }
     };
   }
+  getUserinfoAction(){
+    this.allowMethods = 'post';
+  }
 };
