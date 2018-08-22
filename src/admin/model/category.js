@@ -15,7 +15,7 @@ module.exports = class extends think.Model{
 
       
 
-         const result = await this.alias('t').join({
+         let result = await this.alias('t').join({
             table: 'category',
             as: 'p',
             on: ['parent_id','id']
@@ -39,7 +39,14 @@ module.exports = class extends think.Model{
             categoryList.push(item);
          })
 
-         return categoryList;
+         result.name = params['name'];
+
+         result.is_show = params['is_show'];
+
+         result.data = categoryList;
+         
+
+         return result;
 
     }
 
