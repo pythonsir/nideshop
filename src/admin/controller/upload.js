@@ -1,7 +1,35 @@
 const Base = require('./base.js');
 const fs = require('fs');
+var moment = require('moment');
+const path = require('path');
+const rename = think.promisify(fs.rename, fs);
 
 module.exports = class extends Base {
+
+  async fileSaveAction(){
+
+    const file = this.file('file');
+
+    if (think.isEmpty(file)) {
+      return this.fail('保存失败');
+    }
+
+    const that = this;
+
+    const filename ='/static/upload/images/' +moment().format('YYYYMMDD')+'/'+think.uuid(32) + '.jpg'
+
+    const filepath = path.join(think.ROOT_PATH + '/www',filename);
+
+    think.mkdir(path.dirname(filepath));
+
+    await rename(file.path,filepath)
+   
+    return that.success({
+      fileUrl: 'http://'+this.ctx.host+filename
+    });
+
+  }
+
   async brandPicAction() {
     const brandFile = this.file('brand_pic');
     if (think.isEmpty(brandFile)) {
