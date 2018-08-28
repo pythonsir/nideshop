@@ -12,9 +12,6 @@ module.exports = class extends think.Model{
                 't.name':params['name']
             };
          }
-
-      
-
          let result = await this.alias('t').join({
             table: 'category',
             as: 'p',
