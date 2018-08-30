@@ -52,4 +52,13 @@ module.exports = class extends Base {
 
     return this.success();
   }
+
+  // 获取所有分类
+  async getCategoryListAction(){
+
+     const data =  await this.model('category').field('id,name').select();
+
+     return this.success(data);
+
+  }
 };
