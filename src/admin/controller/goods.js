@@ -6,14 +6,13 @@ module.exports = class extends Base {
    * @return {Promise} []
    */
   async indexAction() {
-    const page = this.get('page') || 1;
-    const size = this.get('size') || 10;
-    const name = this.get('name') || '';
+ 
 
     const model = this.model('goods');
-    const data = await model.where({name: ['like', `%${name}%`]}).order(['id DESC']).page(page, size).countSelect();
 
-    return this.success(data);
+    const result = await model.getlist(this.post());
+
+    return this.success(result);
   }
 
   async infoAction() {
