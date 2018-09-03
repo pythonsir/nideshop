@@ -17,7 +17,7 @@ module.exports = class extends think.Model {
             }
         }
 
-        if( attribute_category_id != "" ){
+        if( attribute_category_id != "" && attribute_category_id != undefined ){
 
             _where = {
                 ..._where,

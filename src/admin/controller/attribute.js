@@ -26,7 +26,16 @@ module.exports = class extends Base {
 
         const model = this.model('attribute_category');
 
-        const result = await model.field('id,name').where({enabled:1}).select();
+        let result = await model.field('id,name').where({enabled:1}).select();
+
+        // topCategory.map((item) => {
+        //     item.level = 1;
+        //     categoryList.push(item);
+        //   });
+
+        result.map((item)=>{
+            item.id = item.id +"";
+        })
 
         return this.success(result);
 
