@@ -44,6 +44,16 @@ module.exports = class extends think.Model {
 
     }
 
+    async saveData(param){
+
+        let values = {
+            ...param,
+            input_type:1,
+            sort_order:0
+        }
+        await this.add(values);
+    }
+
 
 
 
