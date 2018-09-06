@@ -12,6 +12,75 @@ module.exports = class extends Base {
 
     }
 
+    async getAttributeCategoryInfoAction(){
+        try{
+            const model = this.model('attribute_category');
+            let result = await model.where({id:this.post('id')}).find();
+            result.enabled += "";
+            return this.success(result)
+        }catch(err){
+            think.logger.error(error);
+            return this.fail({
+              errno: 1000,
+              errmsg: '服务器异常，操作失败！',
+            })
+        }
+    }
+
+    async saveEditorAttributeCategoryAction(){
+        try{
+            const model = this.model('attribute_category');
+            await model.where({id:this.post('id')}).update({name:this.post('name'),enabled:this.post('enabled')});
+            this.success();
+        }catch(error){
+            think.logger.error(error);
+            return this.fail({
+              errno: 1000,
+              errmsg: '服务器异常，操作失败！',
+            })
+        }
+    }
+
+    async deleteAttributeCategoryAction(){
+        try{
+            const model = this.model('attribute_category');
+            await model.where({id:['IN',this.post('ids')]}).delete()
+            this.success();
+        }catch(error){
+            think.logger.error(error);
+            return this.fail({
+              errno: 1000,
+              errmsg: '服务器异常，操作失败！',
+            })
+        }
+
+
+    }
+
+    async saveAttributeCategoryAction(){
+
+        try{
+
+            const model = this.model('attribute_category');
+
+            await model.add(this.post());
+
+            this.success();
+
+        }catch(error){
+
+            think.logger.error(error);
+            return this.fail({
+              errno: 1000,
+              errmsg: '服务器异常，操作失败！',
+            })
+
+        }
+        
+    }
+
+
+
     async goodsAttributeAction(){
 
         const model = this.model('attribute');
