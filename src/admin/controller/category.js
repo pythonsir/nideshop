@@ -18,14 +18,12 @@ module.exports = class extends Base {
 
     const result = await model.getlist(params);
 
-    
     return this.success(result);
   }
 
   async topCategoryAction() {
     const model = this.model('category');
     const data = await model.where({parent_id: 0}).order(['id ASC']).select();
-
     return this.success(data);
   }
 

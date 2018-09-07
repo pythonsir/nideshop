@@ -29,6 +29,7 @@ module.exports = class extends think.Model {
 
         let result = await this.alias('t').join({
             table: 'attribute_category',
+            join:'inner',
             as: 'p',
             on: ['attribute_category_id','id']
           }).where(_where).page(page,size).order(['t.id DESC']).countSelect({
